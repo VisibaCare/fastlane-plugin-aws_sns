@@ -20,6 +20,10 @@ module Fastlane
         platform_apns_private_key_password = params[:platform_apns_private_key_password]
 
         platform_gcm_api_key = params[:platform_gcm_api_key]
+        
+        success_feedback_role_arn = params[:success_feedback_role_arn]
+        failure_feedback_role_arn = params[:failure_feedback_role_arn]
+        success_feedback_sample_rate = params[:success_feedback_sample_rate]
 
         UI.user_error!("No S3 access key given, pass using `access_key: 'key'`") unless access_key.to_s.length > 0
         UI.user_error!("No S3 secret access key given, pass using `secret_access_key: 'secret key'`") unless secret_access_key.to_s.length > 0
@@ -133,6 +137,18 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :platform_gcm_api_key,
                                       env_name: "AWS_SNS_PLATFORM_GCM_API_KEY",
                                       description: "AWS Platform GCM API KEY",
+                                      optional: true)
+          FastlaneCore::ConfigItem.new(key: :success_feedback_role_arn,
+                                      env_name: "AWS_SNS_SUCCESS_FEEDBACK_ROLE_ARN",
+                                      description: "AWS Success feedback role ARN",
+                                      optional: true)
+          FastlaneCore::ConfigItem.new(key: :failure_feedback_role_arn,
+                                      env_name: "AWS_SNS_FAILURE_FEEDBACK_ROLE_ARN",
+                                      description: "AWS Failure feedback role ARN",
+                                      optional: true)
+          FastlaneCore::ConfigItem.new(key: :success_feedback_sample_rate,
+                                      env_name: "AWS_SNS_SUCCESS_FEEDBACK_SAMPLE_RATE",
+                                      description: "AWS Success feedback sample rate (0-100)",
                                       optional: true)
         ]
       end
