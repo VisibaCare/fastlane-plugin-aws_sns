@@ -6,11 +6,11 @@ require 'fastlane/plugin/aws_sns/version'
 Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-aws_sns'
   spec.version       = Fastlane::AwsSns::VERSION
-  spec.author        = %q{Josh Holtz}
-  spec.email         = %q{josh@rokkincat.com}
+  spec.author        = %q{Andreas Astlind}
+  spec.email         = %q{andreas.astlind@visibacare.com}
 
   spec.summary       = %q{Creates AWS SNS platform applications}
-  spec.homepage      = "https://github.com/joshdholtz/fastlane-plugin-aws_sns"
+  spec.homepage      = "https://github.com/VisibaCare/fastlane-plugin-aws_sns"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)

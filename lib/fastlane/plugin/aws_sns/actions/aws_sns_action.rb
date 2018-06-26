@@ -82,7 +82,7 @@ module Fastlane
       end
 
       def self.authors
-        ["Josh Holtz"]
+        ["Andreas Astlind"]
       end
 
       def self.return_value
