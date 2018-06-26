@@ -25,11 +25,11 @@ module Fastlane
         failure_feedback_role_arn = params[:failure_feedback_role_arn]
         success_feedback_sample_rate = params[:success_feedback_sample_rate]
 
-        UI.user_error!("No S3 access key given, pass using `access_key: 'key'`") unless access_key.to_s.length > 0
-        UI.user_error!("No S3 secret access key given, pass using `secret_access_key: 'secret key'`") unless secret_access_key.to_s.length > 0
-        UI.user_error!("No S3 region given, pass using `region: 'region'`") unless region.to_s.length > 0
-        UI.user_error!("No S3 region given, pass using `platform: 'platform'`") unless platform.to_s.length > 0
-        UI.user_error!("No S3 region given, pass using `platform_name: 'platform_name'`") unless platform_name.to_s.length > 0
+        UI.user_error!("No AWS access key given, pass using `access_key: 'key'`") unless access_key.to_s.length > 0
+        UI.user_error!("No AWS secret access key given, pass using `secret_access_key: 'secret key'`") unless secret_access_key.to_s.length > 0
+        UI.user_error!("No AWS region given, pass using `region: 'region'`") unless region.to_s.length > 0
+        UI.user_error!("No SNS platform given, pass using `platform: 'platform'`") unless platform.to_s.length > 0
+        UI.user_error!("No SNS platform name given, pass using `platform_name: 'platform_name'`") unless platform_name.to_s.length > 0
 
         #
         # Initialize AWS client
@@ -43,7 +43,7 @@ module Fastlane
         #
         # Create APNS and GCM attributes
         #
-        if ['APNS', 'APNS_SANDBOX'].include?(platform)
+        if ['APNS', 'APNS_SANDBOX', 'APNS_VOIP', 'APNS_VOIP_SANDBOX'].include?(platform)
           UI.user_error!("Platform private key does not exist at path: #{platform_apns_private_key_path}") unless File.exist?(platform_apns_private_key_path)
 
           file = File.read(platform_apns_private_key_path)
@@ -119,7 +119,7 @@ module Fastlane
                                        description: "AWS Platform",
                                        optional: false,
                                        verify_block: proc do |value|
-                                         UI.user_error!("Invalid platform #{value}") unless ['APNS', 'APNS_SANDBOX', 'GCM'].include?(value)
+                                         UI.user_error!("Invalid platform #{value}") unless ['APNS', 'APNS_SANDBOX', 'APNS_VOIP', 'APNS_VOIP_SANDBOX', 'GCM'].include?(value)
                                        end),
           FastlaneCore::ConfigItem.new(key: :platform_name,
                                       env_name: "AWS_SNS_PLATFORM_NAME",
